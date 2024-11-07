@@ -82,16 +82,12 @@ public class BattleshipMENU extends JFrame {
             if (player1Name.isEmpty() || player2Name.isEmpty()) {
                 JOptionPane.showMessageDialog(panel, "Please enter names for both players.");
             } else {
-                // Print names for debugging
-                System.out.println("Player 1 Name: " + player1Name);
-                System.out.println("Player 2 Name: " + player2Name);
+                // Close the menu window
+                dispose();
 
-                // Create and add the game screen panel only after names are entered
-                JPanel gameScreenPanel = createGameScreen();
-                mainPanel.add(gameScreenPanel, "GameScreen");
-
-                // Switch to the game screen
-                cardLayout.show(mainPanel, "GameScreen");
+                // Create separate frames for each player
+                createPlayerFrame(player1Name + "'s Game", player1Name);
+                createPlayerFrame(player2Name + "'s Game", player2Name);
             }
         });
 
@@ -106,22 +102,18 @@ public class BattleshipMENU extends JFrame {
         return panel;
     }
 
-    // Method to create the game screen panel with two 10x10 grids for each player
-    private JPanel createGameScreen() {
-        JPanel gamePanel = new JPanel();
-        gamePanel.setLayout(new GridLayout(1, 2, 20, 0));  // Two grids side-by-side with a gap
+    // Method to create a separate frame for each player
+    private void createPlayerFrame(String title, String playerName) {
+        JFrame playerFrame = new JFrame(title);
+        playerFrame.setSize(500, 500);
+        playerFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        playerFrame.setLocationRelativeTo(null);
 
-        // Create Player 1's grid
-        JPanel player1Grid = createPlayerGrid(player1Name + "'s Grid");
+        // Create a panel with the player's grid
+        JPanel playerGridPanel = createPlayerGrid(playerName + "'s Grid");
+        playerFrame.add(playerGridPanel);
 
-        // Create Player 2's grid
-        JPanel player2Grid = createPlayerGrid(player2Name + "'s Grid");
-
-        // Add both grids to the game panel
-        gamePanel.add(player1Grid);
-        gamePanel.add(player2Grid);
-
-        return gamePanel;
+        playerFrame.setVisible(true);
     }
 
     // Helper method to create a 10x10 grid for a player
