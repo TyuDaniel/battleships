@@ -9,10 +9,7 @@ public class BattleshipGrid {
         playerFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         playerFrame.setLocationRelativeTo(null);
 
-        // grid array to store its state
-        int[][] gridArray = new int[10][10];
-
-        // Pass the grid array to the createPlayerGrid method
+        int[][] gridArray = new int[10][10]; // grid array to store its state
         JPanel gridPanel = createPlayerGrid(playerName + "'s Grid", gridArray);
         playerFrame.add(gridPanel);
 
@@ -25,9 +22,10 @@ public class BattleshipGrid {
         JPanel gridPanel = new JPanel(new GridLayout(10, 10));
         gridPanel.setBorder(BorderFactory.createTitledBorder(title));
 
+        //create rows and columns for ships
         for (int row = 0; row < 10; row++) {
             for (int col = 0; col < 10; col++) {
-                JButton cellButton = new JButton();
+                JButton cellButton = new JButton(); //button for ships
                 cellButton.setPreferredSize(new Dimension(40, 40));
 
                 // attach row and col information to the button
@@ -37,7 +35,7 @@ public class BattleshipGrid {
                 // Button click to place ships
                 cellButton.addActionListener(e -> {
                     if (gridArray[currentRow][currentCol] == 0) { // 0 is water
-                        gridArray[currentRow][currentCol] = 1;   // 1 is ship
+                        gridArray[currentRow][currentCol] = 1; // 1 is ship
                         cellButton.setBackground(Color.BLUE); //updates to blue when ship placed
                     } else {
                         JOptionPane.showMessageDialog(gridPanel, "Ship already placed here!");
